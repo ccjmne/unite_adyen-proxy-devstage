@@ -30,13 +30,13 @@ Proxy Adyen notifications to dev-stage for development purposes.
 
 Start the proxy:
 
-```bash
+```shell
 ./index.ts 8443 https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/
 ```
 
 Emulate a notification:
 
-```bash
+```shell
 curl https://your.domain:8443 \
   --header 'Content-Type: application/json' \
   --data '{ "success": true, "reference": "123456", "amount": { "currency": "GBP", "value": 2024 } }'
@@ -44,27 +44,32 @@ curl https://your.domain:8443 \
 
 Output of the `curl` request:
 
-```text
-{"RESPONSE_DESCRIPTION":"DOCUMENT_RECEIVED_SUCCESSFULLY","RESPONSE_CODE":"SUCCESS","LAUFZETTEL_ID":"1919454","notification":"[accepted]"}
+```json
+{
+  "RESPONSE_DESCRIPTION": "DOCUMENT_RECEIVED_SUCCESSFULLY",
+  "RESPONSE_CODE": "SUCCESS",
+  "LAUFZETTEL_ID": "1919454",
+  "notification": "[accepted]"
+}
 ```
 
 Output of the proxy server:
 
-```text
- [listen] Proxy listening on https://localhost:8443
-   [info] Forwarding to https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/
-     [in] {
-     [in]   "success": true,
-     [in]   "reference": "123456",
-     [in]   "amount": {
-     [in]     "currency": "GBP",
-     [in]     "value": 2024
-     [in]   }
-     [in] }
-    [out] {
-    [out]   "RESPONSE_DESCRIPTION": "DOCUMENT_RECEIVED_SUCCESSFULLY",
-    [out]   "RESPONSE_CODE": "SUCCESS",
-    [out]   "LAUFZETTEL_ID": "1919454",
-    [out]   "notification": "[accepted]"
-    [out] }
+```diff
+  [listen] Proxy listening on https://localhost:8443
+#   [info] Forwarding to https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/
++     [in] {
++     [in]   "success": true,
++     [in]   "reference": "123456",
++     [in]   "amount": {
++     [in]     "currency": "GBP",
++     [in]     "value": 2024
++     [in]   }
++     [in] }
+!    [out] {
+!    [out]   "RESPONSE_DESCRIPTION": "DOCUMENT_RECEIVED_SUCCESSFULL  Y",
+!    [out]   "RESPONSE_CODE": "SUCCESS",
+!    [out]   "LAUFZETTEL_ID": "1919454",
+!    [out]   "notification": "[accepted]"
+!    [out] }
 ```
