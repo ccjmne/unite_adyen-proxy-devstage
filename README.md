@@ -21,7 +21,7 @@ Proxy Adyen notifications to dev-stage for development purposes.
 5. Install dependencies: `npm install`.
 6. Start up the proxy: `./index.ts` (requires `ts-node`).
 
-   > The proxy will listen on `localhost:3000` and forward requests to `https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb`.
+   > The proxy will listen on `localhost:3000` and forward requests to `https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/`.
    >
    > These defaults can be changed by passing the `port` and `destination` arguments as follows:  
    >  `./index.ts <port> <destination>`
@@ -31,7 +31,7 @@ Proxy Adyen notifications to dev-stage for development purposes.
 Start the proxy:
 
 ```bash
-./index.ts 8443 https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb
+./index.ts 8443 https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/
 ```
 
 Emulate a notification:
@@ -52,7 +52,7 @@ Output of the proxy server:
 
 ```text
  [listen] Proxy listening on https://localhost:8443
-   [info] Forwarding to https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb
+   [info] Forwarding to https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/
      [in] {
      [in]   "success": true,
      [in]   "reference": "123456",
