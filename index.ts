@@ -11,8 +11,7 @@ const key = fs.readFileSync('key.pem', 'utf8')
 const cert = fs.readFileSync('cert.pem', 'utf8')
 const ca = fs.readFileSync('chain.pem', 'utf8')
 
-const port = 3000
-const [,, dest = 'https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb'] = process.argv
+const [,, port = 3000, dest = 'https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb'] = process.argv
 
 app.use(bodyParser.json())
 
