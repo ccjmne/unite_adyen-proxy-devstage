@@ -8,7 +8,7 @@ import https from 'https'
 
 const app = express()
 const port = 3000
-const key = fs.readFileSync('privkey.pem', 'utf8')
+const key = fs.readFileSync('key.pem', 'utf8')
 const cert = fs.readFileSync('cert.pem', 'utf8')
 const ca = fs.readFileSync('chain.pem', 'utf8')
 
