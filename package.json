@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "author": "Éric NICOLAS (ccjmne) <eric.nicolas@unite.eu>",
-  "license": "ISC",
+  "license": "GPL-2.0",
   "dependencies": {
     "express": "^4.18.2"
   },
