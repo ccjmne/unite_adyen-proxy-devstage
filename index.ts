@@ -7,10 +7,12 @@ import fs from 'fs'
 import https from 'https'
 
 const app = express()
-const port = 3000
 const key = fs.readFileSync('key.pem', 'utf8')
 const cert = fs.readFileSync('cert.pem', 'utf8')
 const ca = fs.readFileSync('chain.pem', 'utf8')
+
+const port = 3000
+const [,, dest = 'https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb'] = process.argv
 
 app.use(bodyParser.json())
 
@@ -18,7 +20,7 @@ app.post('/', (req, res) => {
   log('in', JSON.stringify(req.body, null, 2), 33)
 
   const curl = `curl \\
-    --location 'https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/' \\
+    --location '${dest}' \\
     --header 'Content-Type: application/json;charset=utf-8' \\
     --ciphers DEFAULT@SECLEVEL=1 \\
     --data '${JSON.stringify(req.body)}'`
@@ -35,7 +37,10 @@ app.post('/', (req, res) => {
 })
 
 const srv = https.createServer({ key, cert, ca }, app)
-srv.listen(port, () => log('status', `Server is running on https://localhost:${port}`))
+srv.listen(port, () => {
+  log('listen', `Proxy listening on https://localhost:${port}`)
+  log('info', `Forwarding to ${dest}`, 33)
+})
 
 const BLANKLINE = Symbol('BLANK')
 
