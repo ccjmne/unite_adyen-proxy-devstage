@@ -4,7 +4,7 @@ Proxy Adyen notifications to dev-stage for development purposes.
 
 ## Set-up and usage
 
-1. Open a port on your router the Internet and foward it to your local machine.
+1. Open to the Internet a port on your router and forward it to your local machine.
    > This port shall thereafter be referred to as `port`.
 2. Set up a DNS record for your router's public IP address.
    > This record shall thereafter be referred to as `your.domain`.
@@ -24,7 +24,7 @@ Proxy Adyen notifications to dev-stage for development purposes.
    > The proxy will listen on `localhost:3000` and forward requests to `https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/`.
    >
    > These defaults can be changed by passing the `port` and `destination` arguments as follows:  
-   >  `./index.ts <port> <destination>`
+   > `./index.ts <port> <destination>`
 
 ## Example
 
@@ -37,7 +37,7 @@ Start the proxy:
 Emulate a notification:
 
 ```bash
-curl https://your.domain.org:8443 \
+curl https://your.domain:8443 \
   --header 'Content-Type: application/json' \
   --data '{ "success": true, "reference": "123456", "amount": { "currency": "GBP", "value": 2024 } }'
 ```
