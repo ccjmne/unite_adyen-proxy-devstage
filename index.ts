@@ -1,18 +1,18 @@
 #! /usr/bin/env ts-node
 
-import bodyParser from 'body-parser';
-import { exec } from 'child_process';
-import express from 'express';
-import fs from 'fs';
-import https from 'https';
+import bodyParser from 'body-parser'
+import { exec } from 'child_process'
+import express from 'express'
+import fs from 'fs'
+import https from 'https'
 
-const app = express();
-const port = 3000;
-const key = fs.readFileSync('privkey.pem', 'utf8');
-const cert = fs.readFileSync('cert.pem', 'utf8');
-const ca = fs.readFileSync('chain.pem', 'utf8');
+const app = express()
+const port = 3000
+const key = fs.readFileSync('privkey.pem', 'utf8')
+const cert = fs.readFileSync('cert.pem', 'utf8')
+const ca = fs.readFileSync('chain.pem', 'utf8')
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 app.post('/', (req, res) => {
   log('in', JSON.stringify(req.body, null, 2), 33)
@@ -26,17 +26,16 @@ app.post('/', (req, res) => {
   exec(curl, (error, stdout, stderr) => {
     if (error) {
       log('out', JSON.stringify(JSON.parse(stdout), null, 2), 31)
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message })
     }
 
-
     log('out', JSON.stringify(JSON.parse(stdout), null, 2), 32)
-    res.json(JSON.parse(stdout));
-  });
-});
+    res.json(JSON.parse(stdout))
+  })
+})
 
-const srv = https.createServer({ key, cert, ca }, app);
-srv.listen(port, () => log('status', `Server is running on https://localhost:${port}`));
+const srv = https.createServer({ key, cert, ca }, app)
+srv.listen(port, () => log('status', `Server is running on https://localhost:${port}`))
 
 const BLANKLINE = Symbol('BLANK')
 
