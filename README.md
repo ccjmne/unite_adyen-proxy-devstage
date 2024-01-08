@@ -1,4 +1,4 @@
-# adyen-notify-devstage
+# adyen-proxy-devstage
 
 Proxy Adyen notifications to dev-stage for development purposes.
 

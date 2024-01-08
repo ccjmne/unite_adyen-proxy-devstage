@@ -1,5 +1,5 @@
 {
-  "name": "adyen-notify-devstage",
+  "name": "adyen-proxy-devstage",
   "version": "1.0.0",
   "main": "index.ts",
   "author": "Éric NICOLAS (ccjmne) <eric.nicolas@unite.eu>",
