@@ -1,6 +1,5 @@
 #! /usr/bin/env ts-node
 
-import bodyParser from 'body-parser'
 import { exec } from 'child_process'
 import express from 'express'
 import fs from 'fs'
@@ -13,7 +12,7 @@ const ca = fs.readFileSync('chain.pem', 'utf8')
 
 const [,, port = 3000, dest = 'https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb'] = process.argv
 
-app.use(bodyParser.json())
+app.use(express.json())
 
 app.post('/', (req, res) => {
   log('in', JSON.stringify(req.body, null, 2), 33)
