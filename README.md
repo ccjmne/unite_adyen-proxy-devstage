@@ -48,28 +48,32 @@ Output of the `curl` request:
 {
   "RESPONSE_DESCRIPTION": "DOCUMENT_RECEIVED_SUCCESSFULLY",
   "RESPONSE_CODE": "SUCCESS",
-  "LAUFZETTEL_ID": "1919454",
+  "LAUFZETTEL_ID": "1919191",
   "notification": "[accepted]"
 }
 ```
 
 Output of the proxy server:
 
+> In your shell, the output will be coloured by default.  
+> To generate the diff-syntax–powered decoration in the output instead, set the `OUTPUT` env to `diff`, as follows:  
+> `OUTPUT=diff ./index.ts`
+
 ```diff
-  [listen] Proxy listening on https://localhost:8443
-#   [info] Forwarding to https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/
-+     [in] {
-+     [in]   "success": true,
-+     [in]   "reference": "123456",
-+     [in]   "amount": {
-+     [in]     "currency": "GBP",
-+     [in]     "value": 2024
-+     [in]   }
-+     [in] }
-!    [out] {
-!    [out]   "RESPONSE_DESCRIPTION": "DOCUMENT_RECEIVED_SUCCESSFULL  Y",
-!    [out]   "RESPONSE_CODE": "SUCCESS",
-!    [out]   "LAUFZETTEL_ID": "1919454",
-!    [out]   "notification": "[accepted]"
-!    [out] }
+@@ [listen] Proxy listening on https://localhost:3000                                             @@
+#    [info] Forwarding to https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/
++      [in] {
++      [in]   "success": true,
++      [in]   "reference": "123456",
++      [in]   "amount": {
++      [in]     "currency": "GBP",
++      [in]     "value": 2024
++      [in]   }
++      [in] }
+-     [out] {
+-     [out]   "RESPONSE_DESCRIPTION": "DOCUMENT_RECEIVED_SUCCESSFULLY",
+-     [out]   "RESPONSE_CODE": "SUCCESS",
+-     [out]   "LAUFZETTEL_ID": "1919191",
+-     [out]   "notification": "[accepted]"
+-     [out] }
 ```
