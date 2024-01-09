@@ -5,7 +5,6 @@ import express from 'express'
 import fs from 'fs'
 import https from 'https'
 
-const app = express()
 const key = fs.readFileSync('key.pem', 'utf8')
 const cert = fs.readFileSync('cert.pem', 'utf8')
 const ca = fs.readFileSync('chain.pem', 'utf8')
@@ -13,6 +12,7 @@ const ca = fs.readFileSync('chain.pem', 'utf8')
 const [,, port = 3000, dest = 'https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/'] = process.argv
 const DIFF = process.env.OUTPUT === 'diff'
 
+const app = express()
 app.use(express.json())
 app.post('/', (req, res) => {
   log('in', JSON.stringify(req.body, null, 2), DIFF ? '+' : G)
@@ -25,7 +25,8 @@ app.post('/', (req, res) => {
 
   exec(curl, (error, stdout, stderr) => {
     if (error) {
-      log('error', JSON.stringify(JSON.parse(stdout), null, 2), DIFF ? '!' : R)
+      log('error', stderr, DIFF ? '!' : R)
+      log('error', error.stack, DIFF ? '!' : R)
       return res.status(500).json({ error: error.message })
     }
 
@@ -34,8 +35,7 @@ app.post('/', (req, res) => {
   })
 })
 
-const srv = https.createServer({ key, cert, ca }, app)
-srv.listen(port, () => {
+https.createServer({ key, cert, ca }, app).listen(port, () => {
   log('listen', `Proxy listening on https://localhost:${port}`, DIFF ? '@' : B)
   log('info', `Forwarding to ${dest}`, DIFF ? ' ' : B)
 })
