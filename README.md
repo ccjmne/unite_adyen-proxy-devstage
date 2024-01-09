@@ -2,7 +2,7 @@
 
 Proxy Adyen notifications to dev-stage for development purposes.
 
-## Set-up and usage
+## Setup and usage
 
 1. Open to the Internet a port on your router and forward it to your local machine.
    > This port shall thereafter be referred to as `port`.
@@ -19,19 +19,24 @@ Proxy Adyen notifications to dev-stage for development purposes.
    > - `chain.pem` is the CA chain (w/o the actual certificate itself).
    > - `key.pem` is the private key.
 5. Install dependencies: `npm install`.
-6. Start up the proxy: `./index.ts` (requires `ts-node`).
-
-   > The proxy will listen on `localhost:3000` and forward requests to `https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/`.
+6. Start up the proxy: `./index.ts`.
+   > - It supposes `ts-node` to be installed globally: `npm install --global ts-node`.
+   > - The proxy will listen on `localhost:3000` and forward requests to `https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/`.
    >
-   > These defaults can be changed by passing the `port` and `destination` arguments as follows:  
-   > `./index.ts <port> <destination>`
+   >   These defaults can be changed by passing the `port` and `destination` arguments as follows:  
+   >   `./index.ts <port> <destination>`
+   >
+   > - In your shell, the output will be coloured by default.
+   >
+   >   To obtain a diff-syntax–powered ouput instead, set the `OUTPUT` env to `diff`, as follows:  
+   >   `OUTPUT=diff ./index.ts`
 
 ## Example
 
 Start the proxy:
 
 ```shell
-./index.ts 8443 https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/
+OUTPUT=diff ./index.ts 8443 https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/
 ```
 
 Emulate a notification:
@@ -55,12 +60,8 @@ Output of the `curl` request:
 
 Output of the proxy server:
 
-> In your shell, the output will be coloured by default.  
-> To generate the diff-syntax–powered decoration in the output instead, set the `OUTPUT` env to `diff`, as follows:  
-> `OUTPUT=diff ./index.ts`
-
 ```diff
-@@ [listen] Proxy listening on https://localhost:3000                                             @@
+@@ [listen] Proxy listening on https://localhost:8443                                             @@
 #    [info] Forwarding to https://dev-stage.mercateo.lan/incoming/adyen/urlnotify/gb/
 +      [in] {
 +      [in]   "success": true,
